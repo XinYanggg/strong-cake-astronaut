@@ -19,13 +19,22 @@
       "id": "ui-skins"
     },
     {
-      "id": "ui-skin-candy"
+      "id": "ui-skin-candy",
+      "options": {
+        "color": "pink"
+      }
     },
     {
       "id": "save",
       "options": {
         "namespace": "strong-cake-astronaut"
       }
+    },
+    {
+      "id": "typography"
+    },
+    {
+      "id": "bars"
     }
   ]
 }

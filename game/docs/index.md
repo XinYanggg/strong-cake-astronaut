@@ -2,7 +2,7 @@
 
 **Start with [make-a-2d-game.md](make-a-2d-game.md), and read it whole:** the whole surface in one page. The other pages are reference: look a thing up there when the page sends you, or for a pack you added.
 
-This game composes `core-2d`, which brings `render-auto`, `world-screen`, `rig-follow`, `controls-2d`, `maths`, `color`, `typography`, `audio`, `ui`, `tween`, `backdrops`, `backdrop-sky`, `backdrop-stars`, `render-texture`, `particle-textures`, `particles-2d`, `feel`, `collision`, `pointer`; and `world-topdown`, `save`, `ui-skins`, `ui-skin-candy`.
+This game composes `core-2d`, which brings `render-auto`, `world-screen`, `rig-follow`, `controls-2d`, `maths`, `color`, `audio`, `ui`, `tween`, `backdrops`, `backdrop-sky`, `backdrop-stars`, `render-texture`, `particle-textures`, `particles-2d`, `feel`, `collision`, `pointer`; and `world-topdown`, `typography`, `save`, `ui-skins`, `ui-skin-candy`, `bars`.
 Nothing else exists. Import `game` from `./engine.js`.
 
 - [make-a-2d-game.md](make-a-2d-game.md)
@@ -31,5 +31,6 @@ Nothing else exists. Import `game` from `./engine.js`.
 - [22-pointer.md](22-pointer.md)
 - [24-ui-skins.md](24-ui-skins.md)
 - [25-ui-skin-candy.md](25-ui-skin-candy.md)
+- [26-bars.md](26-bars.md)
 - [renderer-capabilities.md](renderer-capabilities.md)
 - [font-catalog.md](font-catalog.md)

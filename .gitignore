@@ -4,3 +4,6 @@ phaser/
 game/shots/
 game/play/
 .phaser/
+data/raw/
+.env
+.DS_Store

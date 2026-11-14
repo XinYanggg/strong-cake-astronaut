@@ -1,0 +1,182 @@
+[
+  {
+    "id": "replay-solar_flare-2024-10-03",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/33707/1",
+    "nasaName": "Solar Flare X9.0",
+    "date": "2024-10-03",
+    "type": "solar_flare",
+    "realClass": "X9.0",
+    "risk": "high",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 3,
+      "solarPowerMultiplier": 0.8,
+      "commsQuality": 0.5,
+      "durationDays": 1
+    },
+    "kidExplanation": "The Sun let out a huge burst of energy. It can harm astronauts, so everyone hides in the shelter and the shield gets power first."
+  },
+  {
+    "id": "replay-geomagnetic_storm-2024-05-11",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30707/1",
+    "nasaName": "Geomagnetic Storm Kp 9",
+    "date": "2024-05-11",
+    "type": "geomagnetic_storm",
+    "realClass": "Kp 9",
+    "risk": "high",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 3,
+      "solarPowerMultiplier": 0.8,
+      "commsQuality": 0.5,
+      "durationDays": 1
+    },
+    "kidExplanation": "Earth is in a very strong magnetic storm. Messages from mission control may be lost, and the sky glows with auroras."
+  },
+  {
+    "id": "replay-particle_storm-2024-05-09",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/30611/1",
+    "nasaName": "Solar Energetic Particle Event",
+    "date": "2024-05-09",
+    "type": "particle_storm",
+    "realClass": "X2.2",
+    "risk": "high",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 3,
+      "solarPowerMultiplier": 0.8,
+      "commsQuality": 0.5,
+      "durationDays": 1
+    },
+    "kidExplanation": "A storm of fast particles from the Sun is hitting. Go into the shelter now and keep the shield on."
+  },
+  {
+    "id": "replay-solar_flare-2024-01-24",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/28746/1",
+    "nasaName": "Solar Flare M5.1",
+    "date": "2024-01-24",
+    "type": "solar_flare",
+    "realClass": "M5.1",
+    "risk": "moderate",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 1,
+      "solarPowerMultiplier": 0.9,
+      "commsQuality": 0.8,
+      "durationDays": 1
+    },
+    "kidExplanation": "The Sun sent out a strong flash of light. Radiation may go up, so it is safest to wait in the shelter."
+  },
+  {
+    "id": "replay-solar_flare-2024-06-02",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/31268/1",
+    "nasaName": "Solar Flare M7.3",
+    "date": "2024-06-02",
+    "type": "solar_flare",
+    "realClass": "M7.3",
+    "risk": "moderate",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 1,
+      "solarPowerMultiplier": 0.9,
+      "commsQuality": 0.8,
+      "durationDays": 1
+    },
+    "kidExplanation": "The Sun sent out a strong flash of light. Radiation may go up, so it is safest to wait in the shelter."
+  },
+  {
+    "id": "replay-solar_flare-2024-11-03",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/34390/1",
+    "nasaName": "Solar Flare M1.1",
+    "date": "2024-11-03",
+    "type": "solar_flare",
+    "realClass": "M1.1",
+    "risk": "moderate",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 1,
+      "solarPowerMultiplier": 0.9,
+      "commsQuality": 0.8,
+      "durationDays": 1
+    },
+    "kidExplanation": "The Sun sent out a strong flash of light. Radiation may go up, so it is safest to wait in the shelter."
+  },
+  {
+    "id": "replay-geomagnetic_storm-2024-03-03",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/29441/1",
+    "nasaName": "Geomagnetic Storm Kp 5.7",
+    "date": "2024-03-03",
+    "type": "geomagnetic_storm",
+    "realClass": "Kp 5.67",
+    "risk": "moderate",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 1,
+      "solarPowerMultiplier": 0.9,
+      "commsQuality": 0.8,
+      "durationDays": 1
+    },
+    "kidExplanation": "Earth is in a magnetic storm. Radio messages may be weak or late."
+  },
+  {
+    "id": "replay-geomagnetic_storm-2024-08-04",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/32520/1",
+    "nasaName": "Geomagnetic Storm Kp 6.7",
+    "date": "2024-08-04",
+    "type": "geomagnetic_storm",
+    "realClass": "Kp 6.67",
+    "risk": "moderate",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 1,
+      "solarPowerMultiplier": 0.9,
+      "commsQuality": 0.8,
+      "durationDays": 1
+    },
+    "kidExplanation": "Earth is in a magnetic storm. Radio messages may be weak or late."
+  },
+  {
+    "id": "replay-cme-2024-01-02",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/view/Alert/28442/1",
+    "nasaName": "Coronal Mass Ejection, about 617 km/s",
+    "date": "2024-01-02",
+    "type": "cme",
+    "realClass": "617 km/s",
+    "risk": "low",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 0,
+      "solarPowerMultiplier": 1,
+      "commsQuality": 1,
+      "durationDays": 1
+    },
+    "kidExplanation": "The Sun threw out a cloud of particles. It is not aimed at us, so nothing changes today."
+  },
+  {
+    "id": "replay-quiet-2024-01-05",
+    "source": "NASA DONKI",
+    "sourceUrl": "https://ccmc.gsfc.nasa.gov/DONKI/",
+    "nasaName": "Quiet Sun",
+    "date": "2024-01-05",
+    "type": "quiet",
+    "realClass": "none",
+    "risk": "low",
+    "mode": "replay",
+    "gameEffects": {
+      "radiationLevel": 0,
+      "solarPowerMultiplier": 1,
+      "commsQuality": 1,
+      "durationDays": 1
+    },
+    "kidExplanation": "The Sun is calm today. Great day to work on the greenhouse and the power station."
+  }
+]
