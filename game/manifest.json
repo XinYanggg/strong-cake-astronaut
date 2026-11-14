@@ -1,0 +1,31 @@
+{
+  "name": "strong-cake-astronaut",
+  "screen": {
+    "width": 1280,
+    "height": 720,
+    "fit": "letterbox",
+    "background": "#0b1030"
+  },
+  "seed": 63923,
+  "backgroundPolicy": "pause",
+  "packs": [
+    {
+      "id": "core-2d"
+    },
+    {
+      "id": "world-topdown"
+    },
+    {
+      "id": "ui-skins"
+    },
+    {
+      "id": "ui-skin-candy"
+    },
+    {
+      "id": "save",
+      "options": {
+        "namespace": "strong-cake-astronaut"
+      }
+    }
+  ]
+}
