@@ -1,0 +1,17 @@
+{
+  "site": "https://phaser.io",
+  "run": "untitled-game-mwfzpgrb",
+  "game": "pGpG5cmBC1G",
+  "design": "ep9rbntbeU8",
+  "slug": "strong-cake-astronaut",
+  "title": "Strong Cake Astronaut",
+  "kind": "blank",
+  "core": "2d",
+  "screen": "720x1280",
+  "watch": "https://phaser.io/agent/watch/ig2rq9w68hfp",
+  "desk": "https://phaser.io/agent/untitled-game",
+  "crewRoom": "https://phaser.io/agent/bots/crew?design=untitled-game",
+  "cli": "0.8.0",
+  "made": "2026-11-14T05:53:32.522Z",
+  "engine": "v3-82bf126"
+}
