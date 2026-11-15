@@ -25,6 +25,7 @@
     "credits": "node phaser/cli/bin/phaser-ae.mjs credits",
     "gdd": "node phaser/cli/bin/phaser-ae.mjs gdd",
     "idea": "node phaser/cli/bin/phaser-ae.mjs idea",
-    "site": "node phaser/bin/bake.mjs build game dist && rm -rf site && cp -R dist site && rm -f site/.phaser-ae-output.json"
+    "site": "node scripts/site.mjs",
+    "favicon": "node scripts/make-favicon.mjs"
   }
 }
