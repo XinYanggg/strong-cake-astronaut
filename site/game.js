@@ -42680,7 +42680,7 @@ function createHud() {
   const noteGfx = game.graphics({ layer: "hud" });
   const noteLines = [0, 1, 2].map((i) => game.text("", PANEL.x + 14, PANEL.y + PANEL.h + 14 + i * 18, { size: 14, align: "left", baseline: "top", color: "#ffe08a", stroke: thin }));
   const hintGfx = game.graphics({ layer: "hud" });
-  const hints = ["Move: W A S D    Use: E", "Missions: Tab    Alerts: N    Map: M"].map((t, i) => game.text(t, 20, H - 50 + i * 18, { size: 13, align: "left", baseline: "top", color: "#b9c6e6", stroke: thin }));
+  const hints = ["Move: W A S D    Use: E", "Alerts: N    Map: M"].map((t, i) => game.text(t, 20, H - 50 + i * 18, { size: 13, align: "left", baseline: "top", color: "#b9c6e6", stroke: thin }));
   const bannerGfx = game.graphics({ layer: "hud" });
   const bannerText = game.text("", W / 2, 40, { size: 24, stroke: outline });
   const msgGfx = game.graphics({ layer: "hud" });
@@ -42728,7 +42728,7 @@ function createHud() {
       });
       if (show3) {
         panelGfx.draw((ctx) => box3(ctx, PANEL.x, PANEL.y, PANEL.w, PANEL.h));
-        hintGfx.draw((c) => box3(c, 8, H - 62, 250, 54));
+        hintGfx.draw((c) => box3(c, 8, H - 62, 200, 54));
         if (note.length) noteGfx.draw((c) => box3(c, PANEL.x, PANEL.y + PANEL.h + 8, PANEL.w, note.length * 18 + 20, "rgba(60,40,8,0.85)", "rgba(255,224,138,0.8)"));
         if (messageLeft > 0 && message.length) {
           const h = message.length * 26 + 20, y0 = H - 40 - h;

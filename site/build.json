@@ -1,6 +1,6 @@
 {
   "name": "strong-cake-astronaut",
-  "sourceIdentity": "e83993050e7135112ae9d21127cedb4fa379701dc1492dd13aa80d8dff328c8e",
+  "sourceIdentity": "377677c6d04bb0d8ea7c09b34209bc9127e3f1b2a1f80b8f92d495f3ce1d8b75",
   "sources": {
     "game/art.ts": "80cbaa460ca075525c50cc3ac2e3534bcd58c0b11662ed80d58e6ffdd309d846",
     "game/assets.json": "8288acf964862b28b2ec685a185dbec20b1890258bdfb1b2b622ff3f0ac1dd3e",
@@ -54,7 +54,7 @@
     "game/sound.ts": "35b137eec6b834673f3142fc9040b2e600db9eafb2e1b00e750b15dd1de7bce9",
     "game/spaceWeather.ts": "6e50555572f4d776fd446530da7eea7224cf20c57279d7e683dc65ecb80e7408",
     "game/ui/CropPicker.ts": "489a8878310b2c3fb86b03e21ad4c64b897ecf1864d583853f15851e4e6e1bcb",
-    "game/ui/Hud.ts": "7d81a411e6c3345310e4062b89a6e4f3b617ea8524780f2c311b5d4d0c620cc1",
+    "game/ui/Hud.ts": "b0e4fdedf6362550f171c185419c72f1a7ce34e051a58301cd116b5349bbff55",
     "game/ui/LabPanel.ts": "4e7cbb63957114955b41103aebd3c6de8861bf97e0e9ab3cbc120a21a4abfdfa",
     "game/ui/Menu.ts": "ddcbab9880f22fc7d468849b728d22743ace4dad6db3822162816dab907df2a9",
     "game/ui/Panels.ts": "3575242e1520e4683068cbce5762b08b9f1fd0ed994aa5040c98452fc515edd9",
@@ -164,7 +164,7 @@
     "engine/bakery/src/validate-game.ts": "f03183672e6b6986adf29f890ba035bb8efc92529beba8f02491e8ce4a3b0a87"
   },
   "outputs": {
-    "game.js": "9ef9c3cbf73d4e0f9b999bbc7745de944e48bb4afe438b5389b2aceece83c354",
+    "game.js": "df8b9709145d008495fc27cdfd822fa0e61bd063b9bb6e78859a2d59e84ab544",
     "index.html": "fee2f10650a9f495930b8a193471c83b771e1e7344d11d034e75dd3b750c190e",
     "text-shaper.wasm": "67cf5be0116894e5b38038ddbd4fc9b0bf979317b3ecdbd0ece2d67edc960f7d"
   },
