@@ -59,7 +59,7 @@ export function createHud(): Hud
 
     // controls reminder, bottom left
     const hintGfx = game.graphics({ layer: 'hud' });
-    const hints = ['Move: W A S D    Use: E', 'Missions: Tab    Alerts: N    Map: M'].map((t, i) =>
+    const hints = ['Move: W A S D    Use: E', 'Alerts: N    Map: M'].map((t, i) =>
         game.text(t, 20, H - 50 + i * 18, { size: 13, align: 'left', baseline: 'top', color: '#b9c6e6', stroke: thin }));
 
     // banner, top centre
@@ -100,7 +100,7 @@ export function createHud(): Hud
             msgLines.forEach((t, i) => { t.visible = show && messageLeft > 0; t.text = message[i] ?? ''; });
             if (show) {
                 panelGfx.draw(ctx => box(ctx, PANEL.x, PANEL.y, PANEL.w, PANEL.h));
-                hintGfx.draw(c => box(c, 8, H - 62, 250, 54));
+                hintGfx.draw(c => box(c, 8, H - 62, 200, 54));
                 if (note.length) noteGfx.draw(c => box(c, PANEL.x, PANEL.y + PANEL.h + 8, PANEL.w, note.length * 18 + 20, 'rgba(60,40,8,0.85)', 'rgba(255,224,138,0.8)'));
                 if (messageLeft > 0 && message.length) {
                     const h = message.length * 26 + 20, y0 = H - 40 - h;
