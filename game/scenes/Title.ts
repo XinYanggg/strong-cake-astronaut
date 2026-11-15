@@ -2,6 +2,7 @@ import { game } from '../engine.js';
 import assets from '../assets.json';
 import { CAKES } from '../art.js';
 import { openSettings } from './Settings.js';
+import { aboutOpen, closeAbout, openAbout } from './About.js';
 import { loadLiveEvent, useReplayOnly } from '../live.js';
 
 /**
@@ -68,8 +69,10 @@ export const Title = {
         game.ui.button({ anchor: 'center', y: H * 0.1, h: 96, text: 'Play', style: 'good', icon: 'play', onClick: () => start(false) });
         game.ui.button({ anchor: 'center', y: H * 0.1 + 124, h: 72, text: 'Play with live Sun data', icon: 'globe', onClick: () => start(true) });
         game.ui.button({ anchor: 'bottom-right', x: -20, y: -20, h: 64, text: 'Settings', style: 'blue', icon: 'settings', onClick: () => openSettings({ dim: true }) });
+        game.ui.button({ anchor: 'bottom-left', x: 20, y: -20, h: 64, text: 'About', style: 'blue', icon: 'info', onClick: () => openAbout() });
         game.text('Play uses saved NASA events. Live uses what NOAA sees on the Sun today.', W / 2, H * 0.1 + 270, { size: 16, color: '#b9c6e6' });
         game.step('title', () => {
+            if (aboutOpen() && game.input.keyPressed('Escape')) closeAbout();
             if (game.input.keyPressed('Space') || game.input.keyPressed('Enter')) start(false);
         });
     },

@@ -6,7 +6,7 @@ const WALL = 16;
 const DOOR = 100;
 
 export type Room = { id: string; name: string; x: number; y: number; w: number; h: number; color: string };
-export type StationDef = { id: string; name: string; room: string; x: number; y: number; w: number; h: number; text: string; task?: string; opens?: 'power' | 'alerts' | 'lab'; bed?: number; controls?: 'life' | 'greenhouse' | 'comms' | 'shield' };
+export type StationDef = { id: string; name: string; room: string; x: number; y: number; w: number; h: number; text: string; task?: string; opens?: 'power' | 'alerts' | 'lab' | 'missions'; bed?: number; controls?: 'life' | 'greenhouse' | 'comms' | 'shield' };
 
 export const ROOMS: Room[] = [
     { id: 'command', name: 'Command Center', x: 600, y: 330, w: 400, h: 340, color: '#2b3a5e' },
@@ -17,7 +17,7 @@ export const ROOMS: Room[] = [
 ];
 
 export const STATIONS: StationDef[] = [
-    { id: 'mission-board', name: 'Mission Board', room: 'command', x: 680, y: 380, w: 90, h: 44, text: 'Mission info will show here.' },
+    { id: 'mission-board', name: 'Mission Board', room: 'command', x: 680, y: 380, w: 90, h: 44, text: '', opens: 'missions' },
     { id: 'nasa-monitor', name: 'NASA Alerts', room: 'command', x: 800, y: 380, w: 90, h: 44, text: 'NASA alerts', opens: 'alerts' },
     { id: 'comm-terminal', name: 'Comm Terminal', room: 'command', x: 920, y: 380, w: 90, h: 44, text: 'Communication terminal activated.', task: 'm1.comms', controls: 'comms' },
     { id: 'life-support', name: 'Life Support Unit', room: 'command', x: 690, y: 620, w: 90, h: 44, text: 'Life support: placeholder. Oxygen, water and food come later.', task: 'm1.life', controls: 'life' },

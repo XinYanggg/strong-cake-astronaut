@@ -4,7 +4,7 @@ Design: `../design/game-design-document.md`. Overview and commands: `../README.m
 
 ## How to test
 - Scenes: `title`, `play`, `pause`, `gameover`. `npm run -s play -- "scene play"` jumps straight into play.
-- Controls: W A S D or arrows move, E uses the nearest machine (within 90 px), Tab or I missions, N latest NASA alert,
+- Controls: W A S D or arrows move, E uses the nearest machine (within 90 px), Tab or I (or E at the Mission Board) missions, N latest NASA alert,
   M map, Esc closes a window or pauses.
 - Debug controls (backquote key, or `cheat <name>` in `play`): `screen <name>`, `skipday`, `win`, `lose`, `battery <n>`,
   `day <n>`, `storm` (20 s before impact), `ripen` (all crops ready), `mission` (finish today's tasks), `goto <station id>`,
@@ -24,11 +24,11 @@ Design: `../design/game-design-document.md`. Overview and commands: `../README.m
 - Live mode uses today's NOAA event on the day that matches its risk (quiet 1, low 2, moderate 3, high 4).
 
 ## Map of the source
-- `main.ts` boot. `scenes/` Title, Play, Pause, Settings (a window, not a scene), GameOver.
+- `main.ts` boot. `scenes/` Title, Play, Pause, GameOver; Settings and About are windows opened from the title and pause menu.
 - `run.ts` state and rules. `events.ts` daily events. `missions.ts` missions and scripted trouble.
 - `spaceWeather.ts` risk rules and event format. `live.ts` NOAA live mode. `data/replay-events.json` saved events.
 - `outpost.ts` layout (rooms, `WALL_RECTS`, `DOORS`, stations, `CAKE_SPOTS`, `EXTERIOR`). `entities/Player.ts` the astronaut.
-- `art.ts` all pictures. `sound.ts` all sounds, music and volume. `ui/` windows: Panels (missions, map, event card),
+- `art.ts` all pictures. `sound.ts` all sounds, music and volume. `ui/Hud.ts` the heads-up display (every part sits in a box; hides while a window is open; messages wrap), `ui/` windows: Panels (mission board, map, event card),
   PowerPanel, LabPanel, CropPicker, Menu (shared menu look).
 - `debug.ts` debug controls.
 

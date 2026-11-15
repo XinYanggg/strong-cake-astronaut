@@ -5293,12 +5293,12 @@ function describe(src, h, defs) {
       extra = { error: error instanceof Error ? error.message : String(error) };
     }
     if (!extra) continue;
-    const { box: box3, ...rest } = extra;
-    if (box3) {
-      o.x = round(box3.x);
-      o.y = round(box3.y);
-      o.width = round(box3.width);
-      o.height = round(box3.height);
+    const { box: box4, ...rest } = extra;
+    if (box4) {
+      o.x = round(box4.x);
+      o.y = round(box4.y);
+      o.width = round(box4.width);
+      o.height = round(box4.height);
     }
     o[d.name] = plain(rest);
   }
@@ -6588,16 +6588,16 @@ function createLoadingView(host3, actions) {
     const dt = then ? deterministicMath.min(0.05, (now - then) / 1e3) : 0;
     then = now;
     if (!ctx) return;
-    const box3 = canvas.getBoundingClientRect(), bar = track.getBoundingClientRect();
-    if (!box3.width || !bar.width) return;
+    const box4 = canvas.getBoundingClientRect(), bar = track.getBoundingClientRect();
+    if (!box4.width || !bar.width) return;
     const dpr = deterministicMath.min(2, globalThis.devicePixelRatio || 1);
-    const w = deterministicMath.round(box3.width * dpr), h = deterministicMath.round(box3.height * dpr);
+    const w = deterministicMath.round(box4.width * dpr), h = deterministicMath.round(box4.height * dpr);
     if (canvas.width !== w || canvas.height !== h) {
       canvas.width = w;
       canvas.height = h;
     }
     const p = deterministicMath.max(0, deterministicMath.min(1, fill.getBoundingClientRect().width / bar.width));
-    const x = bar.left - box3.left + bar.width * p, y = bar.top - box3.top + bar.height / 2, s = deterministicMath.max(1, bar.height / 9);
+    const x = bar.left - box4.left + bar.width * p, y = bar.top - box4.top + bar.height / 2, s = deterministicMath.max(1, bar.height / 9);
     if (lastHead < 0) lastHead = x;
     if (!reduced && state === "loading" && p > 3e-3) {
       owed += deterministicMath.max(0, x - lastHead) * 0.8 / s + dt * 20;
@@ -6610,7 +6610,7 @@ function createLoadingView(host3, actions) {
     lastHead = x;
     if (stops) head.style.setProperty("--head", rgb(colourAt(stops, p)));
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, box3.width, box3.height);
+    ctx.clearRect(0, 0, box4.width, box4.height);
     ctx.globalCompositeOperation = light ? "source-over" : "lighter";
     for (let i = sparks.length - 1; i >= 0; i--) {
       const k = sparks[i];
@@ -15554,14 +15554,14 @@ function createFace(api, source, size) {
 function createLabel(api, spec, defaultFace) {
   const face = spec.font ?? defaultFace;
   let content = spec.text, x = spec.x, y = spec.y, scale2 = spec.scale ?? 1, tint2 = spec.tint ?? "#ffffff";
-  let outline = spec.outline ?? null, shadow = spec.shadow ?? null;
+  let outline2 = spec.outline ?? null, shadow = spec.shadow ?? null;
   const hex4 = (c) => /^#[0-9a-f]{3,4}$/i.test(c) ? "#" + [...c.slice(1)].map((d) => d + d).join("") : c;
   const style = () => ({
     fontSize: face.size * scale2,
     color: hex4(tint2),
     lineHeight: 1.3,
     letterSpacing: (spec.spacing ?? 0) * scale2,
-    ...outline ? { outline: { color: hex4(outline.color), width: outline.width * scale2 } } : {},
+    ...outline2 ? { outline: { color: hex4(outline2.color), width: outline2.width * scale2 } } : {},
     ...shadow ? { shadow: { color: hex4(shadow.color), offset: [shadow.x * scale2, shadow.y * scale2] } } : {}
   });
   const shaped = (v) => v === "" ? " " : v;
@@ -15629,10 +15629,10 @@ function createLabel(api, spec, defaultFace) {
       paragraph.set({ style: style() });
     },
     get outline() {
-      return outline;
+      return outline2;
     },
     set outline(v) {
-      outline = v;
+      outline2 = v;
       paragraph.set({ style: style() });
       place();
     },
@@ -27605,8 +27605,8 @@ var msdfCodec = registerGlyphRasterCodec({
   schema: msdfSchema,
   codecBody() {
     const p = techniqueProgram(msdfSchema, { textEffects: msdf.textEffects });
-    const { inlineOrigin, blockOrigin, fontSize, color: color2, outline, shadow } = p.semantics;
-    if (outline === void 0 || shadow === void 0) {
+    const { inlineOrigin, blockOrigin, fontSize, color: color2, outline: outline2, shadow } = p.semantics;
+    if (outline2 === void 0 || shadow === void 0) {
       throw new Error("MSDF text effects are not configured");
     }
     const { bearingX, bearingY, width, height, uvOriginX, uvOriginY, uvSizeX, uvSizeY, uvMaxX, uvMaxY, page } = p.binding;
@@ -27620,8 +27620,8 @@ var msdfCodec = registerGlyphRasterCodec({
       uvRect: [uvOriginX, uvOriginY, uvSizeX, uvSizeY],
       uvBounds: [uvOriginX, uvOriginY, uvMaxX, uvMaxY],
       color: [color2.red, color2.green, color2.blue, color2.alpha],
-      effectColor: [outline.color, shadow.color],
-      page: [shadow.offsetXEm, shadow.offsetYEm, outline.widthEm, u3222.toF32(page)]
+      effectColor: [outline2.color, shadow.color],
+      page: [shadow.offsetXEm, shadow.offsetYEm, outline2.widthEm, u3222.toF32(page)]
     });
   },
   compileFont(compiler) {
@@ -31859,7 +31859,7 @@ function readUiFrame(raw) {
   if (!url || !width || !height || width <= 0 || height <= 0 || !slices || slices.some((s) => s === null || s < 0) || !aperture || !speaker) return null;
   const [l, t, rr, b] = slices;
   if (l + rr >= width || t + b >= height) return null;
-  for (const box3 of [aperture, speaker]) if (box3.x + box3.width > width || box3.y + box3.height > height) return null;
+  for (const box4 of [aperture, speaker]) if (box4.x + box4.width > width || box4.y + box4.height > height) return null;
   const out = { url, width: deterministicMath.round(width), height: deterministicMath.round(height), slices: slices.map(deterministicMath.round), aperture, speaker };
   if (r.mode === "horizontal") out.mode = "horizontal";
   const bs = num(r.borderScale);
@@ -32928,8 +32928,8 @@ function ui() {
           const x = l.x - this.labelW / 2, y = l.y - this.labelH / 2;
           let clip = this.clipRect();
           if (this.kind === "input" || this.kind === "textarea") {
-            const box3 = { x, y, w: this.labelW, h: this.labelH };
-            clip = clip ? { x: deterministicMath.max(clip.x, x), y: deterministicMath.max(clip.y, y), w: deterministicMath.min(clip.x + clip.w, x + box3.w) - deterministicMath.max(clip.x, x), h: deterministicMath.min(clip.y + clip.h, y + box3.h) - deterministicMath.max(clip.y, y) } : box3;
+            const box4 = { x, y, w: this.labelW, h: this.labelH };
+            clip = clip ? { x: deterministicMath.max(clip.x, x), y: deterministicMath.max(clip.y, y), w: deterministicMath.min(clip.x + clip.w, x + box4.w) - deterministicMath.max(clip.x, x), h: deterministicMath.min(clip.y + clip.h, y + box4.h) - deterministicMath.max(clip.y, y) } : box4;
           }
           for (const r of this.fontLines) r.line.place(x + r.x, y + r.y, l.z, this.shown, clip);
           if (this.fontCaret) {
@@ -33049,8 +33049,8 @@ function ui() {
         }
         /** Width including a toggle's, checkbox's or radio's side label. */
         get outerW() {
-          const box3 = this.kind === "checkbox" || this.kind === "radio" ? deterministicMath.min(this.w, this.h) : this.w;
-          return (this.kind === "toggle" || this.kind === "checkbox" || this.kind === "radio") && this.label ? deterministicMath.max(this.w, box3 + 6 + this.label.width) : this.w;
+          const box4 = this.kind === "checkbox" || this.kind === "radio" ? deterministicMath.min(this.w, this.h) : this.w;
+          return (this.kind === "toggle" || this.kind === "checkbox" || this.kind === "radio") && this.label ? deterministicMath.max(this.w, box4 + 6 + this.label.width) : this.w;
         }
         relayout() {
           this.runLayout();
@@ -33092,8 +33092,8 @@ function ui() {
               this.paint();
             }
           }
-          const box3 = this.content;
-          const main = col ? box3.h : box3.w, cross2 = col ? box3.w : box3.h;
+          const box4 = this.content;
+          const main = col ? box4.h : box4.w, cross2 = col ? box4.w : box4.h;
           const j = L.justify ?? "start";
           let cursor = j === "center" ? (main - total) / 2 : j === "end" ? main - total : j === "space-around" && kids.length ? (main - total + gap * (kids.length - 1)) / (kids.length * 2) : 0;
           const step = j === "space-between" && kids.length > 1 ? (main - sizes.reduce((a, b) => a + b, 0)) / (kids.length - 1) : j === "space-around" && kids.length ? (main - sizes.reduce((a, b) => a + b, 0)) / kids.length : gap;
@@ -33110,7 +33110,7 @@ function ui() {
                 c.paint();
               }
             }
-            c.cell = col ? { x: box3.x + crossPos + c.x, y: box3.y + cursor + c.y, w: c.w, h: c.h } : { x: box3.x + cursor + c.x, y: box3.y + crossPos + c.y, w: c.w, h: c.h };
+            c.cell = col ? { x: box4.x + crossPos + c.x, y: box4.y + cursor + c.y, w: c.w, h: c.h } : { x: box4.x + cursor + c.x, y: box4.y + crossPos + c.y, w: c.w, h: c.h };
             cursor += sizes[i] + step;
           });
           for (const c of this.kids) c.runLayout();
@@ -33231,9 +33231,9 @@ function ui() {
         layoutRect() {
           if (this.parentW?.layout && this.cell) return { x: this.cell.x + this.cell.w / 2, y: this.cell.y + this.cell.h / 2 };
           const safe = this.spec.safeArea === false ? { top: 0, right: 0, bottom: 0, left: 0 } : k.screen.safe ?? { top: 0, right: 0, bottom: 0, left: 0 };
-          const box3 = this.parentW ? this.parentW.content : { x: safe.left, y: safe.top, w: deterministicMath.max(0, k.screen.width - safe.left - safe.right), h: deterministicMath.max(0, k.screen.height - safe.top - safe.bottom) };
+          const box4 = this.parentW ? this.parentW.content : { x: safe.left, y: safe.top, w: deterministicMath.max(0, k.screen.width - safe.left - safe.right), h: deterministicMath.max(0, k.screen.height - safe.top - safe.bottom) };
           const a = this.anchor, ax = a.includes("left") ? 0 : a.includes("right") ? 1 : 0.5, ay = a.startsWith("top") ? 0 : a.startsWith("bottom") ? 1 : 0.5;
-          const left = box3.x + ax * box3.w + this.x - ax * this.w, top = box3.y + ay * box3.h + this.y - ay * this.h;
+          const left = box4.x + ax * box4.w + this.x - ax * this.w, top = box4.y + ay * box4.h + this.y - ay * this.h;
           return { x: left + this.w / 2, y: top + this.h / 2 };
         }
         place() {
@@ -33247,22 +33247,22 @@ function ui() {
           const fy = onFace && st.depth > 0 ? (this.bounce ? deterministicMath.min(st.press, st.depth) : 0) - deterministicMath.min(st.depth, this.h * 0.75) / 2 : 0;
           const side = this.kind === "toggle" || this.kind === "checkbox" || this.kind === "radio";
           const boxed = this.kind === "checkbox" || this.kind === "radio";
-          const box3 = boxed ? deterministicMath.min(this.w, this.h) : this.w;
-          const boxX = boxed ? c.x - this.w / 2 + box3 / 2 : c.x;
+          const box4 = boxed ? deterministicMath.min(this.w, this.h) : this.w;
+          const boxX = boxed ? c.x - this.w / 2 + box4 / 2 : c.x;
           this.panel.x = boxX + ox;
           this.panel.y = c.y + oy;
-          this.panel.width = box3;
-          this.panel.height = boxed ? box3 : this.h;
+          this.panel.width = box4;
+          this.panel.height = boxed ? box4 : this.h;
           this.panel.visible = shown && this.kind !== "label";
           if (this.label) {
             const cs = this.kind === "window" && lookup2("title") ? resolve("title", "base") : st, half = this.w / 2 - cs.textInset - this.label.width / 2;
             const across = cs.textAlign === "left" ? -deterministicMath.max(0, half) : cs.textAlign === "right" ? deterministicMath.max(0, half) : 0;
-            this.label.x = (boxed ? boxX : c.x) + ox + (side ? box3 / 2 + 6 + this.label.width / 2 : this.kind === "input" || this.kind === "textarea" ? -this.w / 2 + 8 + this.label.width / 2 : across);
+            this.label.x = (boxed ? boxX : c.x) + ox + (side ? box4 / 2 + 6 + this.label.width / 2 : this.kind === "input" || this.kind === "textarea" ? -this.w / 2 + 8 + this.label.width / 2 : across);
             this.label.y = c.y + oy + fy + (this.kind === "window" ? -this.h / 2 + this.titleH / 2 : this.kind === "textarea" ? -this.h / 2 + 6 + this.label.height / 2 : 0);
             this.label.visible = shown && (this._text.length > 0 || this.kind === "input" || this.kind === "textarea");
           }
           if (this.kind === "checkbox") {
-            const kn = deterministicMath.max(4, box3 - 8);
+            const kn = deterministicMath.max(4, box4 - 8);
             this.knob.x = boxX;
             this.knob.y = c.y;
             this.knob.width = kn;
@@ -33270,7 +33270,7 @@ function ui() {
             this.knob.visible = shown && this.value > 0;
           }
           if (this.kind === "radio") {
-            const kn = deterministicMath.max(4, box3 - 10);
+            const kn = deterministicMath.max(4, box4 - 10);
             this.knob.x = boxX;
             this.knob.y = c.y;
             this.knob.width = kn;
@@ -33322,7 +33322,7 @@ function ui() {
           if (this.iconPart) {
             const withText = !!this.label && this._text.length > 0 && this.kind !== "input" && this.kind !== "textarea";
             const b = onFace ? this.faceBox(st) : null;
-            const size = b ? deterministicMath.max(1, deterministicMath.round(withText ? b.icon * this.fitScale : deterministicMath.min(b.icon, this._w - 2 * (st.border + 3), b.faceH * 0.92))) : this.spec.iconSize ?? deterministicMath.round(deterministicMath.min(boxed ? box3 : this.w, this.h) * 0.6);
+            const size = b ? deterministicMath.max(1, deterministicMath.round(withText ? b.icon * this.fitScale : deterministicMath.min(b.icon, this._w - 2 * (st.border + 3), b.faceH * 0.92))) : this.spec.iconSize ?? deterministicMath.round(deterministicMath.min(boxed ? box4 : this.w, this.h) * 0.6);
             const gap = deterministicMath.round(size * 0.3);
             let ix = (boxed ? boxX : c.x) + ox;
             if (withText) {
@@ -33757,10 +33757,10 @@ function ui() {
         },
         pauseButton(spec = {}) {
           if (!spec.onClick && !k.scenes.has("pause")) throw new Error("ui.pauseButton: there is no 'pause' scene for it to open. Register one (the skeleton's scenes/Pause.ts), or give the button an onClick");
-          const open2 = spec.onClick ?? (() => {
+          const open3 = spec.onClick ?? (() => {
             if (k.scenes.current !== "pause") k.scenes.push("pause");
           });
-          return make("button", { id: "pause", accessibleLabel: "Pause", anchor: "top-right", x: -16, y: 16, w: 56, h: 56, icon: "pause", style: "icon", ...spec, onClick: open2 });
+          return make("button", { id: "pause", accessibleLabel: "Pause", anchor: "top-right", x: -16, y: 16, w: 56, h: 56, icon: "pause", style: "icon", ...spec, onClick: open3 });
         },
         muteButton(spec = {}) {
           const { mutedIcon = "sound-off", ...rest } = spec, onIcon = rest.icon ?? "sound-on", after = rest.onClick;
@@ -40089,11 +40089,11 @@ function bars(options = {}) {
           const text2 = this.formatText();
           this.lastText = text2;
           const color2 = fl.labelColor ?? look.color ?? "#ffffff", fillColor = look.fillColor ?? color2;
-          const outline = look.outline === false ? null : { color: look.outline ?? "#000000b0", width: face.size * scale2 * (look.outlineWidth ?? 0.08) };
+          const outline2 = look.outline === false ? null : { color: look.outline ?? "#000000b0", width: face.size * scale2 * (look.outlineWidth ?? 0.08) };
           const geo = this.edgeGeometry(at);
           const twoTone = fillColor !== color2 && inside && !this.ring && this.dirCode < 4 && deterministicMath.abs(at.rot) < 1e-4;
           const make = () => {
-            const lab = typography3.label({ text: text2, x: at.x, y: at.y, font: face, tint: color2, scale: scale2, layer: this.handle.layer, z: this.handle.z + 0.01, ...outline ? { outline } : {} });
+            const lab = typography3.label({ text: text2, x: at.x, y: at.y, font: face, tint: color2, scale: scale2, layer: this.handle.layer, z: this.handle.z + 0.01, ...outline2 ? { outline: outline2 } : {} });
             lab.object.snap();
             return lab;
           };
@@ -40484,7 +40484,7 @@ var ROOMS = [
   { id: "shelter", name: "Radiation Shelter", x: 600, y: 770, w: 400, h: 190, color: "#5a2b3a" }
 ];
 var STATIONS = [
-  { id: "mission-board", name: "Mission Board", room: "command", x: 680, y: 380, w: 90, h: 44, text: "Mission info will show here." },
+  { id: "mission-board", name: "Mission Board", room: "command", x: 680, y: 380, w: 90, h: 44, text: "", opens: "missions" },
   { id: "nasa-monitor", name: "NASA Alerts", room: "command", x: 800, y: 380, w: 90, h: 44, text: "NASA alerts", opens: "alerts" },
   { id: "comm-terminal", name: "Comm Terminal", room: "command", x: 920, y: 380, w: 90, h: 44, text: "Communication terminal activated.", task: "m1.comms", controls: "comms" },
   { id: "life-support", name: "Life Support Unit", room: "command", x: 690, y: 620, w: 90, h: 44, text: "Life support: placeholder. Oxygen, water and food come later.", task: "m1.life", controls: "life" },
@@ -41002,7 +41002,7 @@ function paintArt() {
 }
 var CAKES = ["cake-cupcake", "cake-slice", "cake-mooncake", "cake-star", "cake-donut", "cake-birthday"];
 function paintCakes() {
-  const outline = "#5a3a3a";
+  const outline2 = "#5a3a3a";
   game.paint("cake-cupcake", 30, 30, (c) => {
     c.fillStyle = "#ff9fc4";
     c.beginPath();
@@ -41024,7 +41024,7 @@ function paintCakes() {
     dot(c, 10, 14, 5, "#fff2f7");
     dot(c, 20, 14, 5, "#fff2f7");
     dot(c, 15, 4, 3.5, "#e8365d");
-    c.strokeStyle = outline;
+    c.strokeStyle = outline2;
     c.lineWidth = 1;
     c.beginPath();
     c.arc(15, 12, 9, deterministicMath.PI, 0);
@@ -41091,7 +41091,7 @@ function paintCakes() {
     c.fill();
     c.fillStyle = "#ff7aa8";
     [[15, 11], [10, 18], [20, 18], [15, 19]].forEach(([x, y]) => dot(c, x, y, 1.6, "#ff7aa8"));
-    c.strokeStyle = outline;
+    c.strokeStyle = outline2;
     c.lineWidth = 1;
     star(14, 6.5);
     c.stroke();
@@ -41111,8 +41111,8 @@ function paintCakes() {
     });
   });
   game.paint("cake-birthday", 30, 30, (c) => {
-    box2(c, 3, 18, 24, 10, 3, "#ff9fc4", outline);
-    box2(c, 7, 11, 16, 8, 3, "#fff2f7", outline);
+    box2(c, 3, 18, 24, 10, 3, "#ff9fc4", outline2);
+    box2(c, 7, 11, 16, 8, 3, "#fff2f7", outline2);
     c.fillStyle = "#6fe3ff";
     c.fillRect(13, 5, 4, 7);
     dot(c, 15, 4, 2.5, "#ffd34d");
@@ -42009,7 +42009,6 @@ function markTask(taskId) {
   if (!isDone(taskId)) run.tasks.push(taskId);
 }
 var openMissions = () => MISSIONS.filter((m) => m.day <= run.day && !run.completed.includes(m.id));
-var missionToday = () => MISSIONS.find((m) => m.day === run.day);
 function stepMissionScript() {
   if (shortageNow()) {
     run.available = deterministicMath.round(run.available * SHORTAGE.factor);
@@ -42212,6 +42211,36 @@ function openSettings(opts) {
   } });
 }
 
+// game/scenes/About.ts
+var open2 = [];
+var aboutOpen = () => open2.length > 0;
+function closeAbout() {
+  for (const w of open2) w.destroy();
+  open2 = [];
+}
+function openAbout() {
+  if (open2.length) return;
+  defineMenuStyles();
+  const W = game.screen.width, H = game.screen.height;
+  open2.push(game.ui.panel({ anchor: "center", w: W, h: H, z: 500, safeArea: false, style: { fill: "#04061acc", radius: 0, border: 0, bevel: 0, gloss: 0, shadow: 0 } }));
+  const menu = game.ui.window({ anchor: "center", w: 560, h: "auto", z: 501, title: "About", titleHeight: 56, style: "space-window", layout: { padding: 28, gap: 10, align: "stretch" } });
+  open2.push(menu);
+  const line = (text2, size, color2, h) => game.ui.label({ parent: menu, h, text: text2, style: { font: `bold ${size}px sans-serif`, textColor: color2 } });
+  line("Strong Cake Astronaut", 30, "#ffffff", 44);
+  line("Developed by Strong Cake", 22, "#ffd0e6", 34);
+  line("Farn Xin Yang", 26, "#ffffff", 36);
+  line("Wong Tek Ken", 26, "#ffffff", 36);
+  line("Space weather data from NASA DONKI and NOAA SWPC.", 15, "#9fb0d8", 24);
+  line("Made with Phaser AE.", 15, "#9fb0d8", 24);
+  game.ui.button({ parent: menu, h: 68, text: "Back", style: "good", icon: "back", onClick: closeAbout });
+  CAKES.slice(0, 3).forEach((c, i) => {
+    const x = W / 2 + (i === 1 ? 330 : -330), y = H / 2 - 100 + i * 90;
+    const cake = game.spawn({ id: "about-cake", texture: c, layer: "hud", z: 600, x, y, scale: 2.4 });
+    open2.push(cake);
+    game.tween.to(cake, { y: y - 10 }, { duration: 1.4 + i * 0.3, yoyo: true, loop: true, ease: "easeInOutQuad" });
+  });
+}
+
 // game/scenes/Title.ts
 var NAME3 = "Strong Cake Astronaut";
 var designed = () => {
@@ -42254,8 +42283,10 @@ var Title = {
     game.ui.button({ anchor: "center", y: H * 0.1, h: 96, text: "Play", style: "good", icon: "play", onClick: () => start(false) });
     game.ui.button({ anchor: "center", y: H * 0.1 + 124, h: 72, text: "Play with live Sun data", icon: "globe", onClick: () => start(true) });
     game.ui.button({ anchor: "bottom-right", x: -20, y: -20, h: 64, text: "Settings", style: "blue", icon: "settings", onClick: () => openSettings({ dim: true }) });
+    game.ui.button({ anchor: "bottom-left", x: 20, y: -20, h: 64, text: "About", style: "blue", icon: "info", onClick: () => openAbout() });
     game.text("Play uses saved NASA events. Live uses what NOAA sees on the Sun today.", W / 2, H * 0.1 + 270, { size: 16, color: "#b9c6e6" });
     game.step("title", () => {
+      if (aboutOpen() && game.input.keyPressed("Escape")) closeAbout();
       if (game.input.keyPressed("Space") || game.input.keyPressed("Enter")) start(false);
     });
   }
@@ -42285,6 +42316,20 @@ function stepPlayer(player, dt, frozen) {
   walkClock += moving ? dt : 0;
   player.setFrame(moving ? deterministicMath.floor(walkClock * 8) % 2 : 0);
   return moving;
+}
+
+// game/ui/text.ts
+function wrap(s, width) {
+  const lines = [];
+  let line = "";
+  for (const word of s.split(" ")) {
+    if ((line + " " + word).trim().length > width) {
+      lines.push(line);
+      line = word;
+    } else line = (line + " " + word).trim();
+  }
+  if (line) lines.push(line);
+  return lines;
 }
 
 // game/ui/LabPanel.ts
@@ -42488,11 +42533,11 @@ function togglePanel(kind, playerX, playerY, world) {
   if (wasThis) return;
   current2 = kind;
   const W = game.screen.width, H = game.screen.height;
-  const pw = 760, ph = 520, px = (W - pw) / 2, py = (H - ph) / 2;
+  const pw = 800, ph = 640, px = (W - pw) / 2, py = (H - ph) / 2;
   const g = game.graphics({ layer: "hud" });
   pieces.push(g);
   g.draw((ctx) => {
-    ctx.fillStyle = "rgba(8,12,30,0.88)";
+    ctx.fillStyle = "rgba(8,12,30,0.96)";
     ctx.fillRect(px, py, pw, ph);
     ctx.strokeStyle = "#8fb4ff";
     ctx.lineWidth = 3;
@@ -42500,25 +42545,28 @@ function togglePanel(kind, playerX, playerY, world) {
   });
   const text2 = (s, x, y, size, color2 = "#ffffff", align4 = "left") => pieces.push(game.text(s, x, y, { size, color: color2, align: align4, baseline: "top" }));
   if (kind === "missions") {
-    const open2 = openMissions().reverse().slice(0, 2);
-    let y = py + 20;
-    if (!open2.length) {
-      text2("All missions so far are complete!", px + 30, y, 28, "#7dff9b");
-      const next = MISSIONS.find((m) => m.day > run.day);
-      if (next) text2(`Next: Mission ${next.id.slice(1)}, ${next.title}, on day ${next.day}.`, px + 30, y + 50, 22, "#b9c6e6");
-      y += 90;
+    text2("Mission Board", px + 30, py + 20, 30, "#ffe08a");
+    const expanded = new Set(openMissions().reverse().slice(0, 2).map((m) => m.id));
+    let y = py + 70;
+    for (const m of MISSIONS) {
+      const done = run.completed.includes(m.id);
+      const waiting = m.day > run.day;
+      text2(`Mission ${m.id.slice(1)}: ${m.title}`, px + 30, y, 24, done ? "#7dff9b" : waiting ? "#8a97b8" : "#ffffff");
+      pieces.push(game.text(done ? "COMPLETED" : waiting ? `Starts on day ${m.day}` : "In progress", px + pw - 30, y + 2, { size: 18, color: done ? "#7dff9b" : waiting ? "#8a97b8" : "#ffd34d", align: "right", baseline: "top" }));
+      y += 36;
+      if (expanded.has(m.id)) {
+        text2(m.goal, px + 44, y - 4, 16, "#b9c6e6");
+        y += 24;
+        for (const t of m.tasks) {
+          const ok = isDone(t.id);
+          text2(`${ok ? "[x]" : "[ ]"}  ${t.label}`, px + 54, y, 19, ok ? "#7dff9b" : "#ffffff");
+          y += 28;
+        }
+        y += 8;
+      }
     }
-    for (const m of open2) {
-      text2(`Mission ${m.id.slice(1)}: ${m.title}`, px + 30, y, 28, "#ffe08a");
-      text2(m.goal, px + 30, y + 36, 17, "#b9c6e6");
-      m.tasks.forEach((t, i) => {
-        const ok = isDone(t.id);
-        text2(`${ok ? "[x]" : "[ ]"}  ${t.label}`, px + 40, y + 68 + i * 30, 21, ok ? "#7dff9b" : "#ffffff");
-      });
-      y += 84 + m.tasks.length * 30;
-    }
-    text2(`Badges: ${run.completed.length} of ${MISSIONS.length}   (${run.completed.map((id2) => id2.slice(1)).join(", ") || "none yet"})`, px + 30, py + ph - 70, 20, "#ffe08a");
-    text2("Tab or I to close", px + 30, py + ph - 36, 16, "#8a97b8");
+    text2(`Badges: ${run.completed.length} of ${MISSIONS.length}`, px + 30, py + ph - 70, 20, "#ffe08a");
+    text2("Tab or Esc to close", px + 30, py + ph - 36, 16, "#8a97b8");
   } else {
     text2("Outpost Map", px + 30, py + 24, 30, "#ffe08a");
     const s = 0.38, mx = px + (pw - world.w * s) / 2, my = py + 90;
@@ -42542,18 +42590,6 @@ function togglePanel(kind, playerX, playerY, world) {
     text2("Pink dot: you.   M to close", px + 30, py + ph - 36, 16, "#8a97b8");
   }
 }
-var wrap = (s, width) => {
-  const lines = [];
-  let line = "";
-  for (const word of s.split(" ")) {
-    if ((line + " " + word).trim().length > width) {
-      lines.push(line);
-      line = word;
-    } else line = (line + " " + word).trim();
-  }
-  if (line) lines.push(line);
-  return lines;
-};
 var TYPE_NAMES = { solar_flare: "Solar flare", cme: "Coronal mass ejection", geomagnetic_storm: "Geomagnetic storm", particle_storm: "Particle storm", quiet: "Quiet Sun" };
 var RISK_COLORS = { low: "#7dff9b", moderate: "#ffd34d", high: "#ff6a6a" };
 function toggleEventPanel(ev) {
@@ -42566,7 +42602,7 @@ function toggleEventPanel(ev) {
   const g = game.graphics({ layer: "hud" });
   pieces.push(g);
   g.draw((ctx) => {
-    ctx.fillStyle = "rgba(8,12,30,0.92)";
+    ctx.fillStyle = "rgba(8,12,30,0.97)";
     ctx.fillRect(px, py, pw, ph);
     ctx.strokeStyle = ev ? RISK_COLORS[ev.risk] : "#8fb4ff";
     ctx.lineWidth = 4;
@@ -42599,9 +42635,127 @@ function toggleEventPanel(ev) {
   text2("N to close", px + 30, py + ph - 36, 16, "#8a97b8");
 }
 
+// game/ui/Hud.ts
+var PANEL = { x: 8, y: 8, w: 272, h: 276 };
+var MESSAGE_SECONDS = 4.5;
+var MESSAGE_LINES = 3;
+var MESSAGE_CHARS = 62;
+var outline = { color: "#000000", width: 3 };
+var thin = { color: "#000000", width: 2 };
+var box3 = (ctx, x, y, w, h, fill = "rgba(8,12,30,0.8)", stroke = "rgba(143,180,255,0.7)") => {
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, 12);
+  ctx.fillStyle = fill;
+  ctx.fill();
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+};
+function createHud() {
+  const W = game.screen.width, H = game.screen.height;
+  const panelGfx = game.graphics({ layer: "hud" });
+  const room = game.text("", PANEL.x + 14, PANEL.y + 8, { size: 22, align: "left", baseline: "top", stroke: outline });
+  const day = game.text("", PANEL.x + 14, PANEL.y + 36, { size: 15, align: "left", baseline: "top", color: "#b9c6e6", stroke: thin });
+  const bar = (i, fill, text2, extra = {}) => game.bars.create({
+    anchor: "top-left",
+    x: PANEL.x + 12,
+    y: PANEL.y + 66 + i * 26,
+    width: PANEL.w - 24,
+    height: 20,
+    max: 100,
+    value: 100,
+    fill,
+    ...extra,
+    label: { text: (b) => text2(b.value), size: 13 }
+  });
+  const battery = bar(0, "#ffd34d", (v) => `Battery ${deterministicMath.round(v)}%  (${totalUse()}/${run.available} a day)`, { zones: [{ below: 0.25, fill: "#ff4b4b", pulse: 2 }] });
+  const life = bar(1, "#5fe08a", (v) => `Life support ${deterministicMath.round(v)}%`, { zones: [{ below: 0.3, fill: "#ff4b4b", pulse: 2 }] });
+  const shield = bar(2, "#6fb6ff", (v) => `Shield ${deterministicMath.round(v)}%`);
+  const health = bar(3, "#ff7a7a", (v) => `Astronaut health ${deterministicMath.round(v)}%`, { zones: [{ below: 0.3, fill: "#ff2b2b", pulse: 2 }] });
+  const food = bar(4, "#ffb347", (v) => `Food ${deterministicMath.round(v)}`, { zones: [{ below: 0.15, fill: "#ff4b4b", pulse: 2 }] });
+  const water = bar(5, "#4db8ff", (v) => `Water ${deterministicMath.round(v)}`, { zones: [{ below: 0.15, fill: "#ff4b4b", pulse: 2 }] });
+  const bars2 = [battery, life, shield, health, food, water];
+  const science = game.text("", PANEL.x + 14, PANEL.y + 226, { size: 14, align: "left", baseline: "top", color: "#d9c2ff", stroke: thin });
+  const source = game.text(dataLabel(), PANEL.x + 14, PANEL.y + 250, { size: 12, align: "left", baseline: "top", color: "#7dff9b", stroke: thin });
+  const noteGfx = game.graphics({ layer: "hud" });
+  const noteLines = [0, 1, 2].map((i) => game.text("", PANEL.x + 14, PANEL.y + PANEL.h + 14 + i * 18, { size: 14, align: "left", baseline: "top", color: "#ffe08a", stroke: thin }));
+  const hintGfx = game.graphics({ layer: "hud" });
+  const hints = ["Move: W A S D    Use: E", "Missions: Tab    Alerts: N    Map: M"].map((t, i) => game.text(t, 20, H - 50 + i * 18, { size: 13, align: "left", baseline: "top", color: "#b9c6e6", stroke: thin }));
+  const bannerGfx = game.graphics({ layer: "hud" });
+  const bannerText = game.text("", W / 2, 40, { size: 24, stroke: outline });
+  const msgGfx = game.graphics({ layer: "hud" });
+  const msgLines = Array.from({ length: MESSAGE_LINES }, () => game.text("", W / 2, 0, { size: 20, stroke: outline }));
+  let message = [];
+  let messageLeft = 0;
+  const setMessage = (text2, seconds) => {
+    message = wrap(text2, MESSAGE_CHARS).slice(0, MESSAGE_LINES);
+    messageLeft = seconds;
+  };
+  return {
+    say: (text2) => setMessage(text2, MESSAGE_SECONDS),
+    progress: (text2) => setMessage(text2, 0.3),
+    update(dt, windowOpen, where) {
+      if (messageLeft <= 0 && notices.length) setMessage(notices.shift(), MESSAGE_SECONDS);
+      messageLeft = deterministicMath.max(0, messageLeft - dt);
+      const left = deterministicMath.ceil(DAY_SECONDS - run.dayTime);
+      room.text = where;
+      day.text = `Day ${run.day} of ${TOTAL_DAYS}   ${deterministicMath.floor(left / 60)}:${String(left % 60).padStart(2, "0")} left`;
+      battery.value = run.battery / BATTERY_MAX * 100;
+      life.value = run.life;
+      shield.value = run.shield;
+      health.value = run.health;
+      food.value = run.food;
+      water.value = run.water;
+      science.text = `Science points: ${deterministicMath.floor(run.science)}`;
+      const note = wrap(troubleLine() ?? statusLine() ?? "", 34).slice(0, 3);
+      const show3 = !windowOpen;
+      [room, day, science, source, ...noteLines, ...hints].forEach((t) => {
+        t.visible = show3;
+      });
+      bars2.forEach((b) => {
+        b.visible = show3;
+      });
+      panelGfx.clear();
+      noteGfx.clear();
+      hintGfx.clear();
+      msgGfx.clear();
+      noteLines.forEach((t, i) => {
+        t.text = show3 ? note[i] ?? "" : "";
+      });
+      msgLines.forEach((t, i) => {
+        t.visible = show3 && messageLeft > 0;
+        t.text = message[i] ?? "";
+      });
+      if (show3) {
+        panelGfx.draw((ctx) => box3(ctx, PANEL.x, PANEL.y, PANEL.w, PANEL.h));
+        hintGfx.draw((c) => box3(c, 8, H - 62, 250, 54));
+        if (note.length) noteGfx.draw((c) => box3(c, PANEL.x, PANEL.y + PANEL.h + 8, PANEL.w, note.length * 18 + 20, "rgba(60,40,8,0.85)", "rgba(255,224,138,0.8)"));
+        if (messageLeft > 0 && message.length) {
+          const h = message.length * 26 + 20, y0 = H - 40 - h;
+          msgLines.forEach((t, i) => {
+            t.y = y0 + 10 + 13 + i * 26;
+          });
+          msgGfx.draw((c) => box3(c, W / 2 - 400, y0, 800, h, "rgba(8,12,30,0.88)"));
+        }
+      }
+      const banner = bannerNow();
+      bannerGfx.clear();
+      bannerText.text = banner?.text ?? "";
+      if (banner) {
+        const w = deterministicMath.min(1e3, deterministicMath.max(520, (bannerText.width || 640) + 56));
+        const flash = banner.color !== "#2f8f55" && deterministicMath.floor(run.dayTime * 2) % 2 === 0;
+        bannerGfx.draw((c) => {
+          c.globalAlpha = flash ? 1 : 0.85;
+          box3(c, W / 2 - w / 2, 14, w, 52, banner.color, "#ffffff");
+          c.globalAlpha = 1;
+        });
+      }
+    }
+  };
+}
+
 // game/scenes/Play.ts
 var REACH = 90;
-var MESSAGE_SECONDS = 4.5;
 var CLEAN_SECONDS = 6;
 function stationText(def) {
   switch (def.id) {
@@ -42624,7 +42778,7 @@ var Play = {
     resetRun();
     resetEvents();
     resetMissions();
-    notices.push("Welcome to the moon base! Press Tab or I to see your mission.", "Walk up to a station and press E to use it.");
+    notices.push("Welcome to the moon base! Press E at the Mission Board (or Tab) to see your mission.", "Walk up to a machine and press E to use it.");
     game.background.color("#0b1030");
     game.background.stars({ density: 0.4, twinkle: 1 });
     game.ui.pauseButton();
@@ -42641,45 +42795,11 @@ var Play = {
     game.rig.bounds({ x: -320, y: -100, w: WORLD.w + 640, h: WORLD.h + 200 });
     const bedSprites = stations.filter((st) => st.data.def.bed !== void 0);
     const bedLabels = bedSprites.map((b) => game.text("", b.x, b.y - 42, { size: 13, color: "#ffffff", layer: "world", z: 3e3, stroke: { color: "#000000", width: 2 } }));
-    const backing = game.graphics({ layer: "hud" });
-    backing.draw((ctx) => {
-      ctx.fillStyle = "rgba(8,12,30,0.65)";
-      ctx.fillRect(8, 8, 252, 296);
-    });
-    const outline = { color: "#000000", width: 3 };
-    const hudRoom = game.text("", 20, 16, { size: 24, align: "left", baseline: "top", stroke: outline });
-    const hudDay = game.text("", 20, 48, { size: 18, align: "left", baseline: "top", stroke: outline });
-    game.text("WASD move   E interact   Tab or I missions   N alerts   M map", 20, 72, { size: 14, align: "left", baseline: "top", color: "#b9c6e6", stroke: { color: "#000000", width: 2 } });
-    const bar = (y, fill, text2, extra = {}) => game.bars.create({
-      anchor: "top-left",
-      x: 16,
-      y,
-      width: 230,
-      height: 20,
-      max: 100,
-      value: 100,
-      fill,
-      ...extra,
-      label: { text: (b) => text2(b.value), size: 13 }
-    });
-    const powerBar = bar(104, "#ffd34d", (v) => `Battery ${deterministicMath.round(v)}%  (${totalUse()}/${run.available} per day)`, { zones: [{ below: 0.25, fill: "#ff4b4b", pulse: 2 }] });
-    const lifeBar = bar(130, "#5fe08a", (v) => `Life support ${deterministicMath.round(v)}%`, { zones: [{ below: 0.3, fill: "#ff4b4b", pulse: 2 }] });
-    const shieldBar = bar(156, "#6fb6ff", (v) => `Shield ${deterministicMath.round(v)}%`);
-    const healthBar = bar(182, "#ff7a7a", (v) => `Astronaut health ${deterministicMath.round(v)}%`, { zones: [{ below: 0.3, fill: "#ff2b2b", pulse: 2 }] });
-    const foodBar = bar(208, "#ffb347", (v) => `Food ${deterministicMath.round(v)}`, { zones: [{ below: 0.15, fill: "#ff4b4b", pulse: 2 }] });
-    const waterBar = bar(234, "#4db8ff", (v) => `Water ${deterministicMath.round(v)}`, { zones: [{ below: 0.15, fill: "#ff4b4b", pulse: 2 }] });
-    const science = game.text("", 16, 262, { size: 14, align: "left", baseline: "top", color: "#d9c2ff", stroke: { color: "#000000", width: 2 } });
-    const hudStatus = game.text("", 16, 282, { size: 13, align: "left", baseline: "top", color: "#ffe08a", stroke: { color: "#000000", width: 2 } });
-    const hudMission = game.text("", game.screen.width / 2, 84, { size: 16, color: "#b9c6e6", stroke: { color: "#000000", width: 2 } });
-    game.text(dataLabel(), game.screen.width / 2, 104, { size: 14, color: "#7dff9b", stroke: { color: "#000000", width: 2 } });
+    const outline2 = { color: "#000000", width: 3 };
+    const hud = createHud();
     const vignette = game.graphics({ layer: "hud" });
-    const bannerGfx = game.graphics({ layer: "hud" });
-    const bannerText = game.text("", game.screen.width / 2, 40, { size: 24, stroke: outline });
-    const prompt = game.text("", 0, 0, { size: 18, color: "#ffe08a", layer: "world", z: 5e3, stroke: outline });
+    const prompt = game.text("", 0, 0, { size: 18, color: "#ffe08a", layer: "world", z: 5e3, stroke: outline2 });
     prompt.visible = false;
-    const box3 = game.graphics({ layer: "hud" });
-    const message = game.text("", game.screen.width / 2, game.screen.height - 60, { size: 22, stroke: outline });
-    let messageLeft = 0;
     const openAlerts = () => {
       const latest = received.at(-1) ?? null;
       toggleEventPanel(latest);
@@ -42691,10 +42811,7 @@ var Play = {
       if (latest && latest.risk !== "low" && latest.type !== "quiet") markTask("m4.read");
     };
     let cleanLeft = 0;
-    const say = (s) => {
-      message.text = s;
-      messageLeft = MESSAGE_SECONDS;
-    };
+    const say = (s) => hud.say(s);
     game.step("play", (dt) => {
       if (game.input.keyPressed("Escape") || game.input.keyPressed("KeyP")) {
         if (panelOpen()) closePanel();
@@ -42721,27 +42838,13 @@ var Play = {
         return;
       }
       if (event === "newday") say(`Day ${run.day} begins.`);
-      hudRoom.text = roomAt(player.x, player.y)?.name ?? "Corridor";
-      const left = deterministicMath.ceil(DAY_SECONDS - run.dayTime);
-      hudDay.text = `Day ${run.day} of ${TOTAL_DAYS}   ${deterministicMath.floor(left / 60)}:${String(left % 60).padStart(2, "0")} left`;
-      powerBar.value = run.battery / BATTERY_MAX * 100;
       refreshPowerPanel();
       refreshLabPanel();
-      science.text = `Science points: ${deterministicMath.floor(run.science)}`;
-      if (messageLeft <= 0 && notices.length) say(notices.shift());
-      lifeBar.value = run.life;
-      shieldBar.value = run.shield;
-      healthBar.value = run.health;
-      foodBar.value = run.food;
-      waterBar.value = run.water;
       bedSprites.forEach((b, i) => {
         const state = run.beds[i];
         b.setFrame(!state.crop ? 0 : state.progress >= 1 ? 3 : state.progress > 0.4 ? 2 : 1);
         bedLabels[i].text = !state.crop ? "Empty" : state.progress >= 1 ? `${CROPS[state.crop].name}: READY!` : `${CROPS[state.crop].name} ${deterministicMath.floor(state.progress * 100)}%`;
       });
-      hudStatus.text = troubleLine() ?? statusLine() ?? "";
-      const today = missionToday();
-      hudMission.text = today ? `Mission ${today.id.slice(1)}: ${today.title}` : "";
       vignette.clear();
       if (stormActive() && current && current.ev.risk !== "low") {
         const pulse = 0.06 + 0.04 * deterministicMath.sin(run.dayTime * 4) + 0.04 * current.ev.gameEffects.radiationLevel;
@@ -42754,21 +42857,7 @@ var Play = {
           ctx.fillRect(0, 0, W, H);
         });
       }
-      const banner = bannerNow();
-      bannerGfx.clear();
-      bannerText.text = banner?.text ?? "";
-      if (banner) {
-        const flash = banner.color !== "#2f8f55" && deterministicMath.floor(run.dayTime * 2) % 2 === 0;
-        bannerGfx.draw((ctx) => {
-          ctx.fillStyle = banner.color;
-          ctx.globalAlpha = flash ? 1 : 0.8;
-          ctx.fillRect(300, 14, 680, 52);
-          ctx.globalAlpha = 1;
-          ctx.strokeStyle = "#ffffff";
-          ctx.lineWidth = 2;
-          ctx.strokeRect(300, 14, 680, 52);
-        });
-      }
+      hud.update(dt, panelOpen(), roomAt(player.x, player.y)?.name ?? "Corridor");
       if (cleanLeft > 0) {
         const panels = stations.find((st) => st.data.def.id === "solar-display");
         if (deterministicMath.hypot(panels.x - player.x, panels.y - player.y) > REACH) {
@@ -42782,10 +42871,7 @@ var Play = {
             markTask("m3.clean");
             soundQueue.push("mission");
             say("The panels are clean! Solar power is back to normal.");
-          } else {
-            message.text = `Cleaning the solar panels... ${deterministicMath.ceil(cleanLeft)}`;
-            messageLeft = 0.3;
-          }
+          } else hud.progress(`Cleaning the solar panels... ${deterministicMath.ceil(cleanLeft)}`);
         }
       }
       let near = null;
@@ -42831,25 +42917,12 @@ var Play = {
           } else if (def.controls) showPowerPanel(def.controls);
           else if (def.opens === "power") showPowerPanel();
           else if (def.opens === "alerts") openAlerts();
+          else if (def.opens === "missions") togglePanel("missions", player.x, player.y, WORLD);
           else if (def.opens === "lab") showLabPanel();
           else say(stationText(def));
         }
       } else {
         prompt.visible = false;
-      }
-      messageLeft = deterministicMath.max(0, messageLeft - dt);
-      box3.clear();
-      if (messageLeft > 0) {
-        const w = 900, h = 56, x = (game.screen.width - w) / 2, y = game.screen.height - 60 - h / 2;
-        box3.draw((ctx) => {
-          ctx.fillStyle = "rgba(8,12,30,0.85)";
-          ctx.fillRect(x, y, w, h);
-          ctx.strokeStyle = "#8fb4ff";
-          ctx.lineWidth = 2;
-          ctx.strokeRect(x, y, w, h);
-        });
-      } else {
-        message.text = "";
       }
     });
   },

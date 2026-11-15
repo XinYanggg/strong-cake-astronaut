@@ -4,6 +4,7 @@ import { MISSIONS, isDone, openMissions } from '../missions.js';
 import { run, type SystemId } from '../run.js';
 import type { GameEvent } from '../spaceWeather.js';
 import { adviceFor } from '../events.js';
+import { wrap } from './text.js';
 import { closeLabPanel, labPanelOpen, openLabPanel } from './LabPanel.js';
 import { closeCropPicker, cropPickerOpen, openCropPicker } from './CropPicker.js';
 import { closePowerPanel, openPowerPanel, powerPanelOpen } from './PowerPanel.js';
@@ -52,37 +53,40 @@ export function togglePanel(kind: Kind, playerX: number, playerY: number, world:
     if (wasThis) return;
     current = kind;
     const W = game.screen.width, H = game.screen.height;
-    const pw = 760, ph = 520, px = (W - pw) / 2, py = (H - ph) / 2;
+    const pw = 800, ph = 640, px = (W - pw) / 2, py = (H - ph) / 2;
 
     const g = game.graphics({ layer: 'hud' });
     pieces.push(g);
     g.draw(ctx => {
-        ctx.fillStyle = 'rgba(8,12,30,0.88)'; ctx.fillRect(px, py, pw, ph);
+        ctx.fillStyle = 'rgba(8,12,30,0.96)'; ctx.fillRect(px, py, pw, ph);
         ctx.strokeStyle = '#8fb4ff'; ctx.lineWidth = 3; ctx.strokeRect(px, py, pw, ph);
     });
     const text = (s: string, x: number, y: number, size: number, color = '#ffffff', align: 'left' | 'center' = 'left') =>
         pieces.push(game.text(s, x, y, { size, color, align, baseline: 'top' }));
 
     if (kind === 'missions') {
-        const open = openMissions().reverse().slice(0, 2);   // today's mission first
-        let y = py + 20;
-        if (!open.length) {
-            text('All missions so far are complete!', px + 30, y, 28, '#7dff9b');
-            const next = MISSIONS.find(m => m.day > run.day);
-            if (next) text(`Next: Mission ${next.id.slice(1)}, ${next.title}, on day ${next.day}.`, px + 30, y + 50, 22, '#b9c6e6');
-            y += 90;
+        text('Mission Board', px + 30, py + 20, 30, '#ffe08a');
+        const expanded = new Set(openMissions().reverse().slice(0, 2).map(m => m.id));   // today's mission first, then one old one
+        let y = py + 70;
+        for (const m of MISSIONS) {
+            const done = run.completed.includes(m.id);
+            const waiting = m.day > run.day;
+            text(`Mission ${m.id.slice(1)}: ${m.title}`, px + 30, y, 24, done ? '#7dff9b' : waiting ? '#8a97b8' : '#ffffff');
+            pieces.push(game.text(done ? 'COMPLETED' : waiting ? `Starts on day ${m.day}` : 'In progress', px + pw - 30, y + 2, { size: 18, color: done ? '#7dff9b' : waiting ? '#8a97b8' : '#ffd34d', align: 'right', baseline: 'top' }));
+            y += 36;
+            if (expanded.has(m.id)) {
+                text(m.goal, px + 44, y - 4, 16, '#b9c6e6');
+                y += 24;
+                for (const t of m.tasks) {
+                    const ok = isDone(t.id);
+                    text(`${ok ? '[x]' : '[ ]'}  ${t.label}`, px + 54, y, 19, ok ? '#7dff9b' : '#ffffff');
+                    y += 28;
+                }
+                y += 8;
+            }
         }
-        for (const m of open) {
-            text(`Mission ${m.id.slice(1)}: ${m.title}`, px + 30, y, 28, '#ffe08a');
-            text(m.goal, px + 30, y + 36, 17, '#b9c6e6');
-            m.tasks.forEach((t, i) => {
-                const ok = isDone(t.id);
-                text(`${ok ? '[x]' : '[ ]'}  ${t.label}`, px + 40, y + 68 + i * 30, 21, ok ? '#7dff9b' : '#ffffff');
-            });
-            y += 84 + m.tasks.length * 30;
-        }
-        text(`Badges: ${run.completed.length} of ${MISSIONS.length}   (${run.completed.map(id => id.slice(1)).join(', ') || 'none yet'})`, px + 30, py + ph - 70, 20, '#ffe08a');
-        text('Tab or I to close', px + 30, py + ph - 36, 16, '#8a97b8');
+        text(`Badges: ${run.completed.length} of ${MISSIONS.length}`, px + 30, py + ph - 70, 20, '#ffe08a');
+        text('Tab or Esc to close', px + 30, py + ph - 36, 16, '#8a97b8');
     } else {
         text('Outpost Map', px + 30, py + 24, 30, '#ffe08a');
         const s = 0.38, mx = px + (pw - world.w * s) / 2, my = py + 90;
@@ -99,14 +103,6 @@ export function togglePanel(kind: Kind, playerX: number, playerY: number, world:
     }
 }
 
-const wrap = (s: string, width: number): string[] => {
-    const lines: string[] = []; let line = '';
-    for (const word of s.split(' ')) {
-        if ((line + ' ' + word).trim().length > width) { lines.push(line); line = word; } else line = (line + ' ' + word).trim();
-    }
-    if (line) lines.push(line);
-    return lines;
-};
 const TYPE_NAMES: Record<string, string> = { solar_flare: 'Solar flare', cme: 'Coronal mass ejection', geomagnetic_storm: 'Geomagnetic storm', particle_storm: 'Particle storm', quiet: 'Quiet Sun' };
 const RISK_COLORS = { low: '#7dff9b', moderate: '#ffd34d', high: '#ff6a6a' };
 
@@ -122,7 +118,7 @@ export function toggleEventPanel(ev: GameEvent | null): void
     const g = game.graphics({ layer: 'hud' });
     pieces.push(g);
     g.draw(ctx => {
-        ctx.fillStyle = 'rgba(8,12,30,0.92)'; ctx.fillRect(px, py, pw, ph);
+        ctx.fillStyle = 'rgba(8,12,30,0.97)'; ctx.fillRect(px, py, pw, ph);
         ctx.strokeStyle = ev ? RISK_COLORS[ev.risk] : '#8fb4ff'; ctx.lineWidth = 4; ctx.strokeRect(px, py, pw, ph);
     });
     const text = (s: string, x: number, y: number, size: number, color = '#ffffff') =>
