@@ -55,9 +55,10 @@ Not in git (listed in `.gitignore`): `phaser/` (the Phaser AE engine, about 120 
 
 The game is a static web page, so any static host works.
 
-**Vercel.** Import the repo, and set: Framework Preset *Other*, Build Command *(empty)*, Output Directory `site`, Install
-Command *(empty)*. Vercel then serves the prebuilt `site/` folder. Deploy from the `dev` or `main` branch; after a game
-change, run `npm run -s site` and commit `site/` first.
+**Vercel.** Import the repo. `vercel.json` already tells Vercel to skip the install and build steps and serve the
+prebuilt `site/` folder (the build needs the Phaser AE engine, which is not in git, so Vercel cannot build it). If the
+project dashboard has its own Build Command or Output Directory set, clear them. Deploy from `dev` or `main`; after a
+game change, run `npm run -s site` and commit `site/` first.
 
 **Any other static host** (Netlify, itch.io, S3, GitHub Pages): upload the contents of `site/`. Nothing else is needed. The game calls
 `services.swpc.noaa.gov` from the player's browser for live mode, which allows browser requests; if it is blocked the game
