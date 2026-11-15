@@ -24,6 +24,7 @@
     "tools": "node phaser/cli/bin/phaser-ae.mjs tools",
     "credits": "node phaser/cli/bin/phaser-ae.mjs credits",
     "gdd": "node phaser/cli/bin/phaser-ae.mjs gdd",
-    "idea": "node phaser/cli/bin/phaser-ae.mjs idea"
+    "idea": "node phaser/cli/bin/phaser-ae.mjs idea",
+    "site": "npm run -s build && rm -rf site && cp -R dist site && rm -f site/.phaser-ae-output.json"
   }
 }

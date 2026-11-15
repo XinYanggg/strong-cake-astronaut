@@ -24,7 +24,8 @@
     "pointer": "3.0.0-3",
     "core-2d": "3.0.0-4",
     "ui-skins": "3.0.0-2",
-    "ui-skin-candy": "3.0.0-3"
+    "ui-skin-candy": "3.0.0-3",
+    "bars": "3.0.0-1"
   },
   "order": [
     "render-auto",
@@ -50,7 +51,8 @@
     "pointer",
     "core-2d",
     "ui-skins",
-    "ui-skin-candy"
+    "ui-skin-candy",
+    "bars"
   ],
   "artifacts": {
     "render-auto": "233c749db053767143311495227320095efde37b6c4cb89c9e64cafa24a4d14d",
@@ -76,6 +78,7 @@
     "pointer": "c0caaf11e59334c9945d8090d34274a080f7aebd440f7a077eed76c0f4894589",
     "core-2d": "372252cc16265d3f96f2c18a040f3586f8418526c6cd15fe79a192b7b42dbc1f",
     "ui-skins": "9c16f877ebbc0f33ffe1888cfdd9d4e0bbcdafd5f0bbf3b9640fc8797d3598c4",
-    "ui-skin-candy": "d48e8d240940faed72a40cae690d70e80ba27799e6d81106836508cd4b941756"
+    "ui-skin-candy": "d48e8d240940faed72a40cae690d70e80ba27799e6d81106836508cd4b941756",
+    "bars": "1dd87ca476b21a1ea9cc97d7570653ba849b9a7e102e6103e8f4e703ceab1c4b"
   }
 }

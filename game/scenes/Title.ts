@@ -1,5 +1,9 @@
 import { game } from '../engine.js';
 import assets from '../assets.json';
+import { CAKES } from '../art.js';
+import { openSettings } from './Settings.js';
+import { aboutOpen, closeAbout, openAbout } from './About.js';
+import { loadLiveEvent, useReplayOnly } from '../live.js';
 
 /**
  * The title screen: the first thing the player sees.
@@ -36,18 +40,40 @@ export const Title = {
             return;
         }
         const W = game.screen.width, H = game.screen.height;
-        game.background.gradient('#141a3a', '#3a2a5a');
+        game.spawn({ id: 'title-bg', texture: 'title-bg', layer: 'floor', z: -20000, x: W / 2, y: H / 2 });
+        // cakes floating in the sky
+        [[110, 150], [380, 70], [820, 120], [1180, 440], [70, 380], [1220, 620], [560, 200]].forEach(([x, y], i) => {
+            const cake = game.spawn({ id: 'title-cake', texture: CAKES[i % CAKES.length], layer: 'world', x, y, scale: 1.8 + (i % 3) * 0.3, rot: (i - 3) * 0.25 });
+            game.tween.to(cake, { y: y - 14, rot: cake.rot + 0.3 }, { duration: 2 + i * 0.3, yoyo: true, loop: true, ease: 'easeInOutQuad' });
+        });
+        game.spawn({ id: 'title-astronaut', texture: 'astronaut', layer: 'world', x: 235, y: 505, scale: 3.3 });
         // The name in the skin's `heading`, and Play in its `good` colour (main.ts chooses the skin).
         game.ui.label({ anchor: 'center', y: -H * 0.12, w: W - 64, h: 160, text: NAME, style: 'heading' });
         let starting = false;
-        const start = (): void => {
+        const status = game.text('', W / 2, H * 0.1 + 330, { size: 20, color: '#ffe08a', stroke: { color: '#000000', width: 3 } });
+        const start = (useLive: boolean): void => {
             if (starting) return;
             starting = true;
-            void game.assets.load(assets, { pack: 'game' }).then(() => game.scenes.go('play'));
+            void (async () => {
+                if (useLive) {
+                    status.text = 'Asking NOAA what the Sun is doing...';
+                    const ok = await loadLiveEvent();
+                    status.text = ok ? 'Live data received!' : 'Could not reach NOAA: using saved NASA data.';
+                } else {
+                    useReplayOnly();
+                }
+                await game.assets.load(assets, { pack: 'game' });
+                game.scenes.go('play');
+            })();
         };
-        game.ui.button({ anchor: 'center', y: H * 0.1, h: 96, text: 'Play', style: 'good', icon: 'play', onClick: start });
+        game.ui.button({ anchor: 'center', y: H * 0.1, h: 96, text: 'Play', style: 'good', icon: 'play', onClick: () => start(false) });
+        game.ui.button({ anchor: 'center', y: H * 0.1 + 124, h: 72, text: 'Play with live Sun data', icon: 'globe', onClick: () => start(true) });
+        game.ui.button({ anchor: 'bottom-right', x: -20, y: -20, h: 64, text: 'Settings', style: 'blue', icon: 'settings', onClick: () => openSettings({ dim: true }) });
+        game.ui.button({ anchor: 'bottom-left', x: 20, y: -20, h: 64, text: 'About', style: 'blue', icon: 'info', onClick: () => openAbout() });
+        game.text('Play uses saved NASA events. Live uses what NOAA sees on the Sun today.', W / 2, H * 0.1 + 270, { size: 16, color: '#b9c6e6' });
         game.step('title', () => {
-            if (game.input.keyPressed('Space') || game.input.keyPressed('Enter')) start();
+            if (aboutOpen() && game.input.keyPressed('Escape')) closeAbout();
+            if (game.input.keyPressed('Space') || game.input.keyPressed('Enter')) start(false);
         });
     },
 };

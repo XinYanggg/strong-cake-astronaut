@@ -6,12 +6,14 @@ import { game } from './engine.js';
 import assets from './assets.json';
 import { paintArt } from './art.js';
 import { addDebugControls } from './debug.js';
+import { defineSounds } from './sound.js';
 import { Title } from './scenes/Title.js';
 import { Play } from './scenes/Play.js';
 import { GameOver } from './scenes/GameOver.js';
 import { Pause } from './scenes/Pause.js';
 
 paintArt();
+defineSounds();
 // The menus wear the candy skin (ui-skin-candy in the manifest), chosen now so its font loads under the loading screen.
 game.ui.theme = 'candy';
 await game.assets.load(assets, { pack: 'title' });
