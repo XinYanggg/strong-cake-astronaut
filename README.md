@@ -1,6 +1,6 @@
 # Strong Cake Astronaut
 
-A 2D top-down moon-base survival game for kids aged 7 to 12, made by team **Strong Cake** for the NASA Hackathon.
+A 2D top-down moon-base survival game for kids aged 7 to 12, made by team **Strong Cake** for the NASA Space Apps Challenge.
 You are a cake-themed astronaut who keeps a lunar outpost alive for 5 lunar days. Real NASA and NOAA space weather
 (solar flares, magnetic storms, particle storms) decides what goes wrong, and you manage power, food, water and shelter.
 
